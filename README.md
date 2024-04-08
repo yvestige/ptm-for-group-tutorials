@@ -10,7 +10,8 @@ This repository will also function as the central hub for all our forthcoming pe
 2. [Code Samples](#code-samples)
 3. [Challenges](#challenges)
 4. [Helpers](#helpers)
-5. [Contact](#contact)
+5. [Presentations](#presentations)
+6. [Contact](#contact)
 
 ## About
 
@@ -27,6 +28,10 @@ Find additional practice and challenges in the `challenges` folder. These exerci
 ## Helpers
 
 Discover useful helper scripts in the `Helpers` folder. These scripts are designed to automate common tasks and streamline processes within your workflow, aiming to simplify tasks and improve efficiency in your daily activities.
+
+## Presentations
+
+Access presentation files and materials in the `Presentations` folder. This folder contains the slides, documents, and other resources used in our tutoring sessions. Feel free to review these materials to reinforce your understanding of the topics covered during our presentations.
 
 ## Contact
 
