@@ -1,6 +1,6 @@
 #!/bin/bash
 
-link=" https://bit.ly/Cluster5Eval-2S23-24"
+link="https://rb.gy/63vu05"
 output_image="qrcode.png"
 
 # Generate QR code
