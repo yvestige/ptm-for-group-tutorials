@@ -4,7 +4,7 @@
 void main() {
 
     // variable manipulation
-    char string[] = "word";
+    char string[] = "abcd";
 
     // print original values
     printf("String value before manipulation: %s\n", string);
