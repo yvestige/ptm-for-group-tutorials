@@ -33,7 +33,7 @@ select_file() {
     while IFS= read -r -d '' file; do
         base_filename=$(basename "$file")
         choices+=("$base_filename")
-    done < <(find . -type f -name "*.py" -print0 | sort -z)
+    done < <(find . -type f -name "*.c" -print0 | sort -z)
 
     choices+=("Quit/Exit")
 
@@ -64,35 +64,48 @@ select_file() {
     done
 }
 
-# function that compiles and runs a c file 
+
 compile_and_run() {
-    
-    # reference for the chosen c file
+    # Reference for the chosen C file
     c_file="$1"
 
-    # try compile
-    gcc "$c_file" -o a.out
+    # Save the current directory
+    original_dir=$(pwd)
 
-    # if gcc returned 0
+    # Enclose the file path in double quotes to handle spaces and special characters
+    c_file="$c_file"
+
+    # Extract the directory path of the C file
+    c_dir=$(dirname "$c_file")
+
+    # Change directory to the location of the C file
+    cd "$c_dir" || { echo "Error: Directory $c_dir does not exist."; exit 1; }
+
+    # Compile the C file and create the executable file
+    gcc -o "$(basename "$c_file").out" "$(basename "$c_file")"
+
+    # Check if compilation was successful
     if [ $? -eq 0 ]; then
-                
-        # print notifications
-        echo $'—————————————————————————————————————————————————'
-        echo $'Dynamic compilation successful. Running program.'
+        echo $'\n—————————————————————————————————————————————————'
+        echo $'Compilation successful. Running program.'
         echo $'—————————————————————————————————————————————————\n'
 
-        # execute the program
-        ./a.out
+        # Execute the compiled file
+        ./$(basename "$c_file").out
 
-        # print it's finished
-        echo $'—————————————————————————————————————————————————'
+        # Print a message indicating program execution is finished
+        echo $'\n\n—————————————————————————————————————————————————'
         echo $'\nThe program has finished running.\n'
 
-    # if gcc returned error
+        # Return to the original directory
+        cd "$original_dir"
+
     else
+        # Print an error message if compilation failed
         echo $'\n\nCompilation failed.'
     fi
 }
+
 
 # Main script
 select_file
