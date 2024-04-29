@@ -3,8 +3,8 @@
 def concatenate_strings():
     str1 = input("Enter the first string: ")
     str2 = input("Enter the second string: ")
-    result = str1 + " " + str2
-    print("Concatenated string: ", result)
+    str1 = str1 + " " + str2
+    print("Concatenated string: ", str1)
 
 # for length
 def calculate_length():
@@ -28,6 +28,13 @@ def split_string():
     delimiter = input("Enter the delimiter: ")
     split_list = my_string.split(delimiter)
     print("Split string: ", split_list)
+    
+    # # this is for "this"
+    # split_list[0]
+    
+    # # this is for "this"
+    # split_list[0][0] # = 't'
+    
     
 # for capitalizing all
 def convert_to_uppercase():

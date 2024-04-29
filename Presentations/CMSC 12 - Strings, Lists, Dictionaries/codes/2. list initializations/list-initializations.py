@@ -1,4 +1,5 @@
 def main():
+    
     # previous declarations for reference later
     empty = 0
     box = 1
@@ -11,6 +12,7 @@ def main():
 
     # custom length list
     custom_list = [0] * 9
+    custom_list_1 = [] # empty
 
     print(custom_list)
     
@@ -65,6 +67,23 @@ def main():
     listName[index]
     
     print(listName)
+    
+    # appending lists
+    container.append(bottle)
+
+# gets the value of a number given an exponent
+def power(base, exponent):
+    
+    # Base case: if exponent is 0, return 1
+    if exponent == 0:
+        return 1
+    
+    # Recursive case: multiply base by itself (exponent - 1) times
+    else:
+        return base * power(base, exponent - 1)
 
 if __name__ == "__main__":
-    main()
+    power(10, 2)
+
+
+
