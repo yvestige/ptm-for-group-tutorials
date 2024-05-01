@@ -1,11 +1,17 @@
+
+# custom abstract data type
 class SchoolSystem:
+    
+    # every time it is created
     def __init__(self):
         self.students = []
 
+    # custom function 1
     def add_student(self, name):
         self.students.append(name)
         print(f"Student {name} added successfully.")
 
+    # custom function 2
     def remove_student(self, name):
         if name in self.students:
             self.students.remove(name)
@@ -13,6 +19,7 @@ class SchoolSystem:
         else:
             print(f"Student {name} not found.")
 
+    # custom function 3
     def print_students(self):
         if self.students:
             print("List of Students:")
@@ -21,10 +28,12 @@ class SchoolSystem:
         else:
             print("No students in the system.")
 
+    # custom function 4
     def get_num_students(self):
         return len(self.students)
 
 
+# main function
 def main():
     school = SchoolSystem()
     while True:

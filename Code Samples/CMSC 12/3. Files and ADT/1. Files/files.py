@@ -1,3 +1,5 @@
+
+# for reading file
 def read_file(filename):
     try:
         with open(filename, 'r') as file:
@@ -7,7 +9,7 @@ def read_file(filename):
     except FileNotFoundError:
         print("File not found.")
 
-
+# for writing to file
 def write_file(filename):
     content = input("Enter content to write to the file: ")
     with open(filename, 'w') as file:
@@ -15,6 +17,7 @@ def write_file(filename):
     print("Content successfully written to the file.")
 
 
+# for appending to file
 def append_file(filename):
     content = input("Enter content to append to the file: ")
     with open(filename, 'a') as file:
@@ -22,6 +25,7 @@ def append_file(filename):
     print("Content successfully appended to the file.")
 
 
+# main function 
 def main():
     filename = input("Enter filename to work with: ")
 
@@ -47,5 +51,6 @@ def main():
             print("Invalid choice. Please enter a valid option.")
 
 
+# make sure it is not module
 if __name__ == "__main__":
     main()
