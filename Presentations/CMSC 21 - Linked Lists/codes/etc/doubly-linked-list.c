@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define RANDOM_STRING "R2390FV00_40RT3HAA@@T4"
 
 // Structure for a song
 typedef struct Song {
@@ -21,6 +22,87 @@ void addSongMenu(SONG **head);
 void playMenu(SONG *currentSong);
 int getTotalSongs(SONG *head);
 int getSongNumber(SONG *head, SONG *currentSong);
+SONG* create_temporary_songs();
+void deleteSongMenu(SONG **head);
+
+// main function of course.
+int main() {
+
+    // Create a playlist
+    SONG *head = NULL;
+
+    // assign temporary songs
+    head = create_temporary_songs();
+
+    // Set the current song to the first song
+    SONG *currentSong = head;
+
+    // some other variables required
+    SONG *temp;
+
+    // Print the playlist
+    printf("Current Playlist:\n\n");
+    printPlaylist(head);
+
+    // Interactive menu for playing songs
+    int choice;
+    do {
+        printf("\n\nCurrently Playing: %s - %s [%d/%d]\n\n", currentSong->title, currentSong->artist, getSongNumber(head, currentSong), getTotalSongs(head));
+        printf("Menu:\n");
+        printf("1. Next song\n");
+        printf("2. Previous song\n");
+        printf("3. Add a new song\n");
+        printf("4. Delete a song\n");
+        printf("5. Print the playlist\n");
+        printf("6. Exit\n\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // Clear the input buffer
+
+        switch(choice) {
+            case 1:
+                if (currentSong->next != NULL) {
+                    currentSong = currentSong->next;
+                } else {
+                    printf("\nEnd of playlist reached.");
+                }
+                break;
+            case 2:
+                if (currentSong->prev != NULL) {
+                    currentSong = currentSong->prev;
+                } else {
+                    printf("\nBeginning of playlist reached.");
+                }
+                break;
+            case 3:
+                addSongMenu(&head);
+                break;
+            case 4:
+                memcpy(temp, currentSong, sizeof(SONG));
+                deleteSongMenu(&head);
+                if (currentSong != temp || currentSong->title != currentSong->title) {
+                    currentSong = head;
+                }
+                break;
+            case 5:
+                printf("\nPlaylist:\n");
+                printPlaylist(head);
+                break;
+            case 6:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 6);
+
+
+    // Delete the playlist to free memory
+    deletePlaylist(head);
+
+    return 0;
+}
+
 
 /// @brief Creates temporary songs.
 /// @return returns reference to the first song instantiated.
@@ -45,72 +127,6 @@ SONG* create_temporary_songs() {
 
     // return first song
     return song1;
-}
-
-// main function of course.
-int main() {
-
-    // Create a playlist
-    SONG *head = NULL;
-
-    // assign temporary songs
-    head = create_temporary_songs();
-
-    // Set the current song to the first song
-    SONG *currentSong = head;
-
-    // Print the playlist
-    printf("Current Playlist:\n\n");
-    printPlaylist(head);
-
-    // Interactive menu for playing songs
-    int choice;
-    do {
-        printf("\n\nCurrently Playing: %s - %s [%d/%d]\n\n", currentSong->title, currentSong->artist, getSongNumber(head, currentSong), getTotalSongs(head));
-        printf("Menu:\n");
-        printf("1. Next song\n");
-        printf("2. Previous song\n");
-        printf("3. Add a new song\n");
-        printf("4. Print the playlist\n");
-        printf("5. Exit\n\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        getchar(); // Clear the input buffer
-
-        switch(choice) {
-            case 1:
-                if (currentSong->next != NULL) {
-                    currentSong = currentSong->next;
-                } else {
-                    printf("\nEnd of playlist reached.");
-                }
-                break;
-            case 2:
-                if (currentSong->prev != NULL) {
-                    currentSong = currentSong->prev;
-                } else {
-                    printf("\nBeginning of playlist reached.");
-                }
-                break;
-            case 3:
-                addSongMenu(&head);
-                break;
-            case 4:
-                printf("\nPlaylist:\n");
-                printPlaylist(head);
-                break;
-            case 5:
-                printf("Exiting...\n");
-                break;
-            default:
-                printf("Invalid choice. Please try again.\n");
-        }
-    } while (choice != 5);
-
-    // Delete the playlist to free memory
-    deletePlaylist(head);
-
-    return 0;
 }
 
 /// @brief Function to create a new song.
@@ -257,3 +273,59 @@ int getSongNumber(SONG *head, SONG *currentSong) {
     return songNumber;
 }
 
+// Function to delete a specific song from the playlist
+void deleteSongMenu(SONG **head) {
+    char title[100];
+    
+    // Prompt the user for the title of the song to delete
+    printf("\nDelete a Song\n");
+    printf("Enter the title of the song to delete: ");
+    fgets(title, sizeof(title), stdin);
+    title[strlen(title) - 1] = '\0'; // Remove the newline character
+
+    // variable declarations
+    SONG *current = *head;
+    SONG *prev = NULL;
+
+    // Traverse the playlist to find the song with the given title
+    while (current != NULL) {
+        
+        // If song is found
+        if (strcmp(current->title, title) == 0) {
+            
+            // if this is the first item in playlist
+            if (prev == NULL) {
+                
+                // set head to next song
+                *head = current->next;
+            
+            // if song is not first item
+            } else {
+                
+                // set "prev's" next pointer
+                prev->next = current->next;
+
+                // set next song's previous pointer (if exists) 
+                // to song pointed by "prev" 
+                if (current->next != NULL) {
+                    current->next->prev = prev;
+                }
+            }
+
+            // modify title value
+            current->title[0]++;
+
+            // Free the memory allocated for the deleted song
+            free(current);
+            printf("Song '%s' deleted successfully!\n", title);
+            return;
+        }
+
+        // Move to the next song in the playlist
+        prev = current;
+        current = current->next;
+    }
+
+    // If the song with the given title is not found
+    printf("Song '%s' not found in the playlist!\n", title);
+}
