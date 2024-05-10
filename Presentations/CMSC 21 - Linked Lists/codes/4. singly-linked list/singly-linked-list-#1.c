@@ -47,7 +47,7 @@ void main() {
 /// @param year Release year of the song.
 /// @return Pointer to the newly created song.
 SONG* createSong(const char *new_title, const char *new_artist, float new_duration, int new_year) {
-    
+
     // Allocate memory for the new song
     SONG *newSongInstance = (SONG*) malloc(sizeof(SONG));
     if (newSongInstance == NULL) {

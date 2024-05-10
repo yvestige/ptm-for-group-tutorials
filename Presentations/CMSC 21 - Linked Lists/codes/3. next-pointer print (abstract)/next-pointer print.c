@@ -9,7 +9,7 @@ typedef struct {
 void next_ptr_p(const char* str) { 
     // This is just an abstraction!! This won't actually work.   
     CHARACTER_NODE* current_letter = str;
-    while ((current_letter->next) != NULL) {
+    while ((current_letter) != NULL) {
         write(STDOUT_FILENO, str, 1);
         current_letter = current_letter->next;
     }
