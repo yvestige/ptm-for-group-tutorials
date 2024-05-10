@@ -275,6 +275,9 @@ int getSongNumber(SONG *head, SONG *currentSong) {
 
 // Function to delete a specific song from the playlist
 void deleteSongMenu(SONG **head) {
+
+    // variable declarations
+    SONG *return_value;
     char title[100];
     
     // Prompt the user for the title of the song to delete
