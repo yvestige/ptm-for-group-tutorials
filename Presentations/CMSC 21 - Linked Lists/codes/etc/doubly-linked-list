@@ -13,17 +13,22 @@ typedef struct Song {
     struct Song *prev; // Pointer to the previous song in the playlist
 } SONG;
 
-// Function prototypes
+
+// Prototype of functions we will discuss
+
 SONG* createSong(const char *title, const char *artist, float duration, int year);
 void printPlaylist(SONG *head);
 void deletePlaylist(SONG *head);
 void appendSong(SONG **head, SONG *newSong);
 void addSongMenu(SONG **head);
-void playMenu(SONG *currentSong);
 int getTotalSongs(SONG *head);
 int getSongNumber(SONG *head, SONG *currentSong);
+SONG *deleteSongMenu(SONG **head);
+
+
+// Prototype of functions not necessary to discuss
+
 SONG* create_temporary_songs();
-void deleteSongMenu(SONG **head);
 
 // main function of course.
 int main() {
@@ -38,7 +43,7 @@ int main() {
     SONG *currentSong = head;
 
     // some other variables required
-    SONG *temp;
+    SONG *temp1, *temp2;
 
     // Print the playlist
     printf("Current Playlist:\n\n");
@@ -78,11 +83,9 @@ int main() {
                 addSongMenu(&head);
                 break;
             case 4:
-                memcpy(temp, currentSong, sizeof(SONG));
-                deleteSongMenu(&head);
-                if (currentSong != temp || currentSong->title != currentSong->title) {
-                    currentSong = head;
-                }
+                memcpy(temp1, currentSong, sizeof(SONG));
+                temp2 = deleteSongMenu(&head);
+                if (temp1 == temp2) currentSong = head;
                 break;
             case 5:
                 printf("\nPlaylist:\n");
@@ -274,7 +277,7 @@ int getSongNumber(SONG *head, SONG *currentSong) {
 }
 
 // Function to delete a specific song from the playlist
-void deleteSongMenu(SONG **head) {
+SONG *deleteSongMenu(SONG **head) {
 
     // variable declarations
     SONG *return_value;
@@ -315,13 +318,10 @@ void deleteSongMenu(SONG **head) {
                 }
             }
 
-            // modify title value
-            current->title[0]++;
-
-            // Free the memory allocated for the deleted song
-            free(current);
+            // At this point, song has been unlinked or "deleted" successfully
             printf("Song '%s' deleted successfully!\n", title);
-            return;
+
+            return current;
         }
 
         // Move to the next song in the playlist
@@ -331,4 +331,7 @@ void deleteSongMenu(SONG **head) {
 
     // If the song with the given title is not found
     printf("Song '%s' not found in the playlist!\n", title);
+
+    // return nothing
+    return NULL;
 }

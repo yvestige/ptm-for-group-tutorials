@@ -11,10 +11,16 @@ typedef struct Song {
     struct Song *next; // Pointer to the next song in the playlist
 } SONG;
 
-// Function prototypes
+
+// Prototypes of functions we will discuss
+
 SONG* createSong(const char *title, const char *artist, float duration, int year);
 void printPlaylist(SONG *head);
 void deletePlaylist(SONG *head);
+
+
+// New function we implemented
+
 void appendSong(SONG **head, SONG *newSong);
 
 

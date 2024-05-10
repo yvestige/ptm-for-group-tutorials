@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "doubly-linked-list": "c",
+        "*.out": "c",
+        "string.h": "c"
+    }
+}

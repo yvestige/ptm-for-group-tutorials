@@ -1,6 +1,6 @@
 #!/bin/bash
 
-link="https://github.com/Yves242/ptm-for-group-tutorials"
+link="https://forms.gle/6gt9FUQ6hQRbwFnG6"
 output_image="qrcode.png"
 
 # Generate QR code
