@@ -27,6 +27,8 @@ def remove_items(my_dict):
 # for checking if item exists
 def check_if_item_exists(my_dict):
     key = input("Enter the key to check membership: ")
+    
+    # my_dict = {"name": "John", "age": 30, "city": "New York"}
     if key in my_dict:
         print("Key exists in the dictionary")
     else:
